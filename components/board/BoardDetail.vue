@@ -1,47 +1,29 @@
 <template>
-  <div>
-    <b-card>
+  <div class="container">
+    <div class="container_menu">게시판 > 상세</div>
       <div class="content-detail-content-info">
         <div class="content-detail-content-info-left">
-          <div class="content-detail-content-info-left-number">{{item.id}}</div>
           <div class="content-detail-content-info-left-subject">{{item.title}}</div>
         </div>
         <div class="content-detail-content-info-right">
-          <div class="content-detail-content-info-right-user">글쓴이: {{item.user}}</div>
+          <div class="content-detail-content-info-right-user">글쓴이: {{item.name}}</div>
           <div class="content-detail-content-info-right-created">등록일: {{item.createDate}}</div>
         </div>
       </div>
-      <div class="content-detail-content">{{item.contents}}</div>
-      <div class="content-detail-button">
+      <div class="content-detail-content">{{item.context}}</div>
+      <div  style="float: right">
         <b-button variant="primary" @click="updateData">수정</b-button>&nbsp;
-        <b-button variant="success" @click="deleteData">삭제</b-button>
+        <b-button variant="danger" @click="deleteData">삭제</b-button>
       </div>
-      <div class="content-detail-comment">
-        <CommentList ></CommentList>
-      </div>
-    </b-card>
   </div>
 </template>
 
 <script>
-  import data from "@/data";
-  import CommentList from "./CommentList";
-
   export default {
     name: "BoardDetail",
     data() {
-      // const contentId = Number(this.$route.query.contentId);
-      // const contentData = data.Content.filter(
-      //   contentItem => contentItem.content_id === contentId
-      // )[0];
       return {
         item : {},
-        // contentId: contentId,
-        // title: contentData.title,
-        // context: contentData.context,
-        // user: data.User.filter(item => item.user_id === contentData.user_id)[0]
-        //   .name,
-        // created: contentData.created_at
       };
     },
     async created () {
@@ -65,7 +47,7 @@
           path: `/board/boardCreate`,
           query: {contentId: this.$route.query.contentId,
                 subject:this.item.title,
-                 contents:this.item.contents
+                 contents:this.item.context
           }
         });
       },
@@ -83,9 +65,6 @@
           console.log('e.response => ', e.response)
         }
       }
-    },
-    components: {
-      CommentList
     }
   };
 </script>
@@ -110,15 +89,15 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
     padding: 1rem;
   }
 
   .content-detail-content {
     border: 1px solid black;
     margin-top: 1rem;
-    padding-top: 1rem;
-    min-height: 720px;
+    margin-bottom: 10px;
+    padding: 1rem;
+    min-height: 500px;
   }
 
   .content-detail-button {

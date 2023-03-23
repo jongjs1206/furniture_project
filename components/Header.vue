@@ -1,111 +1,173 @@
 <template>
   <header>
-    <Logo />
-    <div class="nav nav-pills">
-      <div
-        v-for="nav in navigations"
-        :key="nav.name"
-        class="nav-item">
-        <NuxtLink
-          :to="nav.href"
-          active-class="active"
-          :class="{ active: isMatch(nav.path) }"
-          class="nav-link"
-          exact>
-          {{ nav.name }}
-        </NuxtLink>
+    <div class="container header-top">
+      <div class="logo">Rest Memory</div>
+      <div class="header-top-right">
+        <div class="user">
+          <div class="cnt" style="visibility: hidden;"></div>
+          <font-awesome-icon class="icon" :icon="['far', 'user']" />
+        </div>
+        <div class="basket">
+          <div class="cnt">0</div>
+          <font-awesome-icon class="icon" :icon="['fab', 'shopify']" />
+        </div>
+        <div class="heart">
+          <div class="cnt">0</div>
+          <font-awesome-icon class="icon" :icon="['far', 'heart']" />
+        </div>
       </div>
     </div>
-    <div
-      class="user"
-      @click="toAbout">
-      <img
-        :src="image"
-        :alt="name" />
+    <div class="container header-bottom">
+      <div class="menu">
+        <span class="menu_name">사무용의자</span>
+        <span class="menu_name">학생용의자</span>
+        <span class="menu_name">유아용의자</span>
+        <span class="menu_name">임원용의자</span>
+        <span class="menu_name">회의/수강의자</span>
+        <span class="menu_name">독서실의자</span>
+        <span class="menu_name">인테리어의자</span>
+      </div>
+
     </div>
+<!--    <div>-->
+<!--      <b-navbar toggleable="lg"  class="container">-->
+
+<!--        <b-navbar-brand href="#">-->
+<!--          <Logo />-->
+<!--        </b-navbar-brand>-->
+
+<!--        <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>-->
+
+<!--        <b-collapse id="nav-collapse" is-nav>-->
+<!--          <b-navbar-nav>-->
+<!--            <b-nav-item href="#">메뉴1</b-nav-item>-->
+<!--            <b-nav-item href="#">메뉴2</b-nav-item>-->
+<!--            <b-nav-item href="#">메뉴3</b-nav-item>-->
+<!--            <b-nav-item href="#">메뉴4</b-nav-item>-->
+<!--            <b-nav-item href="#">메뉴5</b-nav-item>-->
+<!--            <b-nav-item @click="toBoard">게시판</b-nav-item>-->
+<!--          </b-navbar-nav>-->
+
+<!--          &lt;!&ndash; Right aligned nav items &ndash;&gt;-->
+<!--          <b-navbar-nav class="ml-auto">-->
+<!--            <b-button class="btn-login" variant="outline-primary">로그인</b-button>-->
+<!--          </b-navbar-nav>-->
+<!--        </b-collapse>-->
+<!--      </b-navbar>-->
+<!--    </div>-->
   </header>
 </template>
 
 <script>
-import { mapState } from 'vuex'
-import Logo from '~/components/Logo'
+  import { mapState } from 'vuex'
+  import Logo from '~/components/Logo'
 
-export default {
-  components: {
-    Logo
-  },
-  data() {
-    return {
-      navigations: [
-        {
-          name: 'Search',
-          href: '/'
-        },
-        {
-          name: 'Movie',
-          href: '/movie/tt4520988',
-          path: /^\/movie/
-        },
-        {
-          name: 'About',
-          href: '/about'
-        }
-      ]
-    }
-  },
-  computed: {
-    ...mapState('about', [
-      'image',
-      'name'
-    ])
-  },
-  methods: {
-    isMatch(path) {
-      if (!path) return false
-      return path.test(this.$route.fullPath)
+  export default {
+    components: {
+      Logo
     },
-    toAbout() {
-      this.$router.push('/about')
+    data() {
+      return {
+        navigations: [
+          {
+            name: 'Search',
+            href: '/'
+          },
+          {
+            name: 'Movie',
+            href: '/movie/tt4520988',
+            path: /^\/movie/
+          },
+          {
+            name: 'About',
+            href: '/about'
+          }
+        ]
+      }
+    },
+    computed: {
+      ...mapState('about', [
+        'image',
+        'name'
+      ])
+    },
+    methods: {
+      isMatch(path) {
+        if (!path) return false
+        return path.test(this.$route.fullPath)
+      },
+      toBoard() {
+        this.$router.push('/')
+      }
     }
   }
-}
 </script>
 
 <style lang="scss" scoped>
-header {
-  height: 70px;
-  display: flex;
-  align-items: center;
-  padding: 0 40px;
-  position: relative;
-  .logo {
-    margin-right: 40px;
-  }
-  .user {
-    width: 40px;
-    height: 40px;
-    padding: 6px;
-    border-radius: 50%;
-    box-sizing: border-box;
-    background-color: $gray-200;
-    cursor: pointer;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    right: 40px;
-    margin: auto;
-    transition: .4s;
-    &:hover {
-      background-color: darken($gray-200, 10%);
+  header {
+    border-bottom: 1px solid #d3d3d3;
+
+    .header-top{
+      display: flex;
+      justify-content: space-between;
+      margin-top: 30px;
+
+      .logo{
+        font-weight: bold;
+        font-size: 35px;
+        letter-spacing: 7px;
+      }
+
+      .header-top-right{
+        display: flex;
+
+        font-size: 25px;
+        .user{
+          font-size: 23px;
+          position: relative;
+          top: 2px;
+        }
+        .basket{
+          margin-left: 18px;
+          cursor: pointer;
+        }
+        .heart{
+          margin-left: 15px;
+          cursor: pointer;
+        }
+        .cnt {
+          font-size: 12px;
+          background: #c7b5ec;
+          width: 18px;
+          height: 18px;
+          border-radius: 50%;
+          position: relative;
+          top:20px;
+          left: 15px;
+          z-index: 20;
+          text-align: center;
+          font-weight: bolder;
+          color: white;
+        }
+      }
     }
-    img {
-      width: 100%;
+
+    .header-bottom{
+      .menu{
+        padding-top: 40px;
+        padding-bottom: 20px;
+      }
+      .menu_name{
+        font-weight: 700;
+        margin-right: 20px;
+        cursor: pointer;
+        padding: 5px 7px 5px 7px;
+        &:hover{
+          background: #c7b5ec;
+          color: white;
+        }
+      }
     }
   }
-  @include media-breakpoint-down(sm) {
-    .nav {
-      display: none;
-    }
-  }
-}
+
 </style>

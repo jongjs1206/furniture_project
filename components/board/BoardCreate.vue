@@ -1,20 +1,23 @@
 <template>
-  <div>
+  <div class="container">
+    <div class="container_menu">게시판 > 글쓰기</div>
     <b-input v-model="subject" placeholder="제목을 입력해주세요."></b-input>
-    <b-form-textarea
+    <textarea
+      class="textarea"
       v-model="context"
       placeholder="내용을 입력해 주세요"
       rows="3"
-      max-rows="6"
-    ></b-form-textarea>
+      max-rows="50"
+    ></textarea>
     <br>
-    <b-button @click="updateMode ? updateContent() : uploadContent()">저장</b-button>&nbsp;
-    <b-button @click="cancle">취소</b-button>
+    <div style="float: right">
+      <b-button variant="primary" @click="updateMode ? updateContent() : uploadContent()">저장</b-button>&nbsp;
+      <b-button variant="danger" @click="cancle">취소</b-button>
+    </div>
   </div>
 </template>
 
 <script>
-  import data from '@/data'
 
   export default {
     name: 'BoardCreate',
@@ -93,6 +96,18 @@
   }
 </script>
 
-<style>
-
+<style lang="scss" scoped>
+.textarea{
+  margin-top:10px;
+  margin-bottom:10px;
+  width: 100%;
+  height: 500px;
+  padding: 10px;
+  box-sizing: border-box;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+  font-size: 16px;
+  resize: both;
+  outline-color: pink;
+}
 </style>

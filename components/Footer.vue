@@ -18,7 +18,6 @@ export default {
   },
   computed: {
     name() {
-      return this.$store.state.about.name
     }
   }
 }

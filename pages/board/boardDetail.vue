@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import BoardDetail from "@/components/board/BoardDetail";
+import BoardDetail from "~/components/board/BoardDetail";
 export default {
   name: "boardDetail",
   components: {BoardDetail},

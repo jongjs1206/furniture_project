@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import BoardCreate from "@/components/board/BoardCreate";
+import BoardCreate from "~/components/board/BoardCreate";
 export default {
   name: "boardCreate",
   components: {BoardCreate},

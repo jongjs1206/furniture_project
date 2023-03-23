@@ -2,21 +2,22 @@
   <NuxtLink
     to="/"
     class="logo">
-    <span>OMDbAPI</span>.COM
+    <span>레스트체어</span>
   </NuxtLink>
 </template>
 
 <style lang="scss" scoped>
 .logo {
   font-family: "Oswald", sans-serif;
-  font-size: 20px;
-  color: $black;
+  font-weight: bolder;
+  font-size: 30px;
+  color: black;
   text-decoration: none;
   &:hover {
-    color: $black;
+    color: black;
   }
   span {
-    color: $primary;
+    color: black;
   }
 }
 </style>

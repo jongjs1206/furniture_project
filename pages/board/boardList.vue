@@ -2,7 +2,7 @@
   <BoardList />
 </template>
 
-<script>
+<script lang="js">
 export default {
   name: "boardList",
   layout: 'default',

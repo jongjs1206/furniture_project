@@ -1,5 +1,4 @@
 // Default variable overrides
-$primary: #FDC000;
 $container-max-widths: (
   sm: 540px,
   md: 704px,
@@ -8,9 +7,3 @@ $container-max-widths: (
   xxl: 1364px
 );
 
-// Required
-@import "~bootstrap/scss/functions";
-@import "~bootstrap/scss/variables";
-@import "~bootstrap/scss/mixins";
-
-@import "~bootstrap/scss/bootstrap";

@@ -26,14 +26,14 @@ app.get('/', (req, res) => {
 app.get('/list', (req, res) => {
   console.log('call /api/board/list')
   const sql = `select
+            @rownum := @rownum + 1 AS no,
             id,
+            name,
             title,
-            b.name user,
-           DATE_FORMAT(createDate,'%Y-%m-%d') createDate
-            from board a
-            inner join user b
-            on a.user = b.user_id
-            where enable=1`;
+            date_format(date_time,'%Y/%m/%d %h:%m:%s') AS date_time
+            from board,
+             (SELECT @rownum :=0) AS r
+            order by date_time desc`;
   con.query(sql, (e, result, fields) => {
     if(e) throw e
     res.send(result)
@@ -43,11 +43,11 @@ app.get('/list', (req, res) => {
 app.get('/listDetail', (req, res) => {
   console.log('call /api/board/listDetail')
   const sql = `select
-            id,
-            title,
-            user,
-           DATE_FORMAT(createDate,'%Y-%m-%d') createDate,
-           contents
+          id,
+          name,
+          title,
+           date_format(date_time,'%Y/%m/%d %h:%m:%s') createDate,
+           context
             from board where id = ` + req.query.ID;
   con.query(sql, (e, result, fields) => {
     if(e) throw e
@@ -59,8 +59,7 @@ app.use(express.json());
 app.post('/deleteBoard', (req, res) => {
   console.log('call /api/board/deleteBoard');
 
-  const sql = `update board set
-           enable = 0 where id = ` + req.body.ID;
+  const sql = `delete from board where id = ` + req.body.ID;
   con.query(sql, (e, result, fields) => {
     if(e) throw e
     res.send(result)
@@ -70,15 +69,13 @@ app.post('/deleteBoard', (req, res) => {
 app.post('/uploadContent', (req, res) => {
   console.log('call /api/board/uploadContent');
 
-  const sql = `insert into board(id,title,contents,user,createDate,count,enable)
+  const sql = `insert into board(id,title,context,name,date_time)
     values(
         (select max(id)+1 from board a),
        '${req.body.subject}',
        '${req.body.context}',
        'jjs',
-        sysdate(),
-        0,
-        1
+        date_format(sysdate(),'%Y%m%d%h%m%s')
     )
   `;
 
@@ -93,7 +90,7 @@ app.post('/updateContent', (req, res) => {
 
   const sql = `update board set
             title =`  +`'`+ req.body.subject + `',
-            contents =`  +`'`+ req.body.context + `'
+            context =`  +`'`+ req.body.context + `'
     where id=`+ req.body.contentId
   ;
 
