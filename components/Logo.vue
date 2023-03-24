@@ -2,7 +2,7 @@
   <NuxtLink
     to="/"
     class="logo">
-    <span>레스트체어</span>
+    <span>COMDOLE</span>
   </NuxtLink>
 </template>
 
